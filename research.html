@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user@fbotto:~/research/view</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--link-color);
+            text-decoration: none;
+            border: 1px solid var(--dim-text);
+            padding: 5px 10px;
+        }
+
+        .back-link:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .doc-header {
+            border-bottom: 1px dashed var(--dim-text);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .doc-meta {
+            color: var(--dim-text);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .doc-content {
+            line-height: 1.8;
+        }
+
+        .citation-box {
+            border: 1px solid var(--dim-text);
+            padding: 1rem;
+            margin: 2rem 0;
+            background: rgba(0, 89, 255, 0.05);
+            /* Slight blue tint for research? or keep green */
+            background: rgba(0, 255, 65, 0.05);
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scanline"></div>
+    <div class="status-bar">
+        <span>UPTIME: <span id="uptime">00:00:00</span></span>
+        <span>MEM: <span id="memory">64KB</span></span>
+        <span>CPU: <span id="cpu">12%</span></span>
+    </div>
+
+    <div class="terminal">
+        <header>
+            <div class="prompt" style="margin-bottom: 2rem;">user@fbotto:~/research$ <span class="typing-effect"
+                    data-text="./cat flavorcharter.txt"></span></div>
+        </header>
+
+        <main id="output" class="visible">
+            <a href="index.html" class="back-link">&lt; cd ..</a>
+
+            <article>
+                <div class="doc-header">
+                    <h1>FlavorCharter</h1>
+                    <div class="doc-meta">
+                        <span>> Role: Research Assistant</span> |
+                        <span>> Lab: Electronic Visualization Laboratory</span> |
+                        <span>> Year: 2025</span>
+                    </div>
+                </div>
+
+                <div class="doc-content">
+                    <h3>[ ABSTRACT ]</h3>
+                    <p>> FlavorCharter introduces a data-driven research framework composed of a mobile platform for
+                        crowd-sourced sensory data collection and an interactive visualization environment for
+                        exploratory analysis. This integrated system bridges data acquisition and visual reasoning,
+                        enabling both large-scale collection and interpretability of flavor perception data. This
+                        symptoms in a more precise, standardized language.</p>
+
+                    <div class="project-image-container">
+                        <img src="app_architecture.png" alt="System Overview" class="project-image">
+                        <p class="image-caption">> Figure 1: System Overview</p>
+                    </div>
+
+
+                    <h3>[ KEY CONTRIBUTIONS ]</h3>
+                    <ul>
+                        <li>
+                            Designed and delivered <b>FlavorCharter</b> as an integrated, data-driven framework that
+                            bridges
+                            <b>crowd-sourced sensory data collection</b> and <b>interactive visual reasoning</b>,
+                            supporting
+                            large-scale acquisition while keeping flavor perception data interpretable.
+                        </li>
+                        <li>
+                            Developed the <b>mobile data-collection platform</b> to reliably
+                            capture
+                            structured taste-perception inputs at scale, with secure user flows and cloud persistence to
+                            enable consistent longitudinal and cross-user analysis.
+                        </li>
+                        <li>
+                            Built the <b>interactive visualization environment</b> for exploratory
+                            analysis,
+                            enabling comparison and interpretation of multivariate flavor profiles to help document
+                            taste
+                            loss and support a more precise, standardized way for patients to describe symptoms.
+                        </li>
+                    </ul>
+
+                    <h3>[ TECH STACK ]</h3>
+                    <ul>
+                        <li><b>Mobile:</b> React Native, Expo</li>
+                        <li><b>Web / Visualization:</b> React, D3.js</li>
+                        <li><b>Backend / APIs:</b> Node.js, Express, REST APIs</li>
+                        <li><b>Data / Auth:</b> Firebase (Firestore, Authentication)</li>
+                        <li><b>Integrations / Hosting:</b> Qualtrics, Render</li>
+                    </ul>
+
+                    <h3>[ LINKS ]</h3>
+                    <ul>
+                        <li><a href="http://flavorcharter.org/" target="_blank" rel="noopener noreferrer">[ Project
+                                Website ]</a></li>
+                        <li><a href="https://webthesis.biblio.polito.it/38591/" target="_blank"
+                                rel="noopener noreferrer">[ Download thesis ]</a></li>
+                        <li><a href="https://www.evl.uic.edu/" target="_blank" rel="noopener noreferrer">[ Lab Website
+                                ]</a>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // System Stats (Reused logic)
+            let seconds = 0;
+            setInterval(() => {
+                seconds++;
+                const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+                const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+                const s = (seconds % 60).toString().padStart(2, '0');
+                document.getElementById('uptime').textContent = `${h}:${m}:${s}`;
+
+                if (Math.random() > 0.5) {
+                    document.getElementById('cpu').textContent = Math.floor(Math.random() * 20) + '%';
+                    document.getElementById('memory').textContent = (64 + Math.floor(Math.random() * 10)) + 'KB';
+                }
+            }, 1000);
+
+            // Typing effect
+            const typingElement = document.querySelector('.typing-effect');
+            const textToType = typingElement.getAttribute('data-text');
+            let index = 0;
+
+            function typeChar() {
+                if (index < textToType.length) {
+                    typingElement.textContent += textToType.charAt(index);
+                    index++;
+                    setTimeout(typeChar, 50);
+                }
+            }
+            typeChar();
+        });
+    </script>
+</body>
+
+</html>

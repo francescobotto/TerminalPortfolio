@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user@fbotto:~/projects/view</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--link-color);
+            text-decoration: none;
+            border: 1px solid var(--dim-text);
+            padding: 5px 10px;
+        }
+
+        .back-link:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .project-header {
+            border-bottom: 1px dashed var(--dim-text);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-meta {
+            color: var(--dim-text);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .project-content {
+            line-height: 1.8;
+        }
+
+        .project-image-placeholder {
+            width: 100%;
+            height: 300px;
+            border: 1px solid var(--dim-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 255, 65, 0.05);
+            margin: 2rem 0;
+            color: var(--dim-text);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scanline"></div>
+    <div class="status-bar">
+        <span>UPTIME: <span id="uptime">00:00:00</span></span>
+        <span>MEM: <span id="memory">64KB</span></span>
+        <span>CPU: <span id="cpu">12%</span></span>
+    </div>
+
+    <div class="terminal">
+        <header>
+            <div class="prompt" style="margin-bottom: 2rem;">user@fbotto:~/projects$ <span class="typing-effect"
+                    data-text="./cat multiplayer_game.txt"></span></div>
+        </header>
+
+        <main id="output" class="visible">
+            <a href="index.html" class="back-link">&lt; cd ..</a>
+
+            <article>
+                <div class="project-header">
+                    <h1>What Do You Meme?</h1>
+                    <div class="project-meta">
+                        <span>> Year: 2025</span> |
+                        <span>> Stack: JavaScript, React, Node.js, WebSockets</span>
+                    </div>
+                </div>
+
+                <div class="project-content">
+                    <p>> “What Do You Meme” is an interactive online multiplayer game designed for fast-paced, real-time
+                        gameplay and a smooth user experience. Built by a team of four, the project focuses on
+                        responsive
+                        UI interactions and reliable state synchronization across players during live rounds.
+                    </p>
+
+                    <h3>[ KEY FEATURES ]</h3>
+                    <ul>
+                        <li><b>Real-time multiplayer gameplay:</b> live rooms, turns/rounds, timers, and state updates
+                            synchronized across all players.</li>
+                        <li><b>Responsive front-end experience:</b> UI designed to remain smooth and stable under
+                            frequent real-time events.</li>
+                        <li><b>WebSocket state synchronization:</b> low-latency communication layer to keep players
+                            aligned on actions and round progression.</li>
+                        <li><b>Correctness under rapid events:</b> consistent update ordering, prevention of UI desync,
+                            and graceful handling of disconnects/reconnects.</li>
+                        <li><b>Secure access control:</b> OAuth-based authentication to verify users and associate
+                            actions with authenticated identities.</li>
+                        <li><b>Web security hardening:</b> restricted CORS policies, input validation, and structured
+                            WebSocket message formats to protect the API surface.</li>
+                    </ul>
+
+                    <h3>[ TECH STACK ]</h3>
+                    <ul>
+                        <li><b>Frontend:</b> JavaScript, React</li>
+                        <li><b>Backend:</b> Node.js, Express.js</li>
+                        <li><b>Real-time:</b> WebSockets</li>
+                        <li><b>Security:</b> CORS, input validation</li>
+                    </ul>
+
+                    <h3>[ LINKS ]</h3>
+                    <ul>
+                        <li><a href="https://whatdoyoumeme-0r2t.onrender.com" target="_blank"
+                                rel="noopener noreferrer">[ Try it out! ]</a></li>
+                    </ul>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <script>
+        // Minimal script for sticky header/typing effect if needed
+        document.addEventListener('DOMContentLoaded', () => {
+            // System Stats (Reused logic)
+            let seconds = 0;
+            setInterval(() => {
+                seconds++;
+                const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+                const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+                const s = (seconds % 60).toString().padStart(2, '0');
+                document.getElementById('uptime').textContent = `${h}:${m}:${s}`;
+
+                if (Math.random() > 0.5) {
+                    document.getElementById('cpu').textContent = Math.floor(Math.random() * 20) + '%';
+                    document.getElementById('memory').textContent = (64 + Math.floor(Math.random() * 10)) + 'KB';
+                }
+            }, 1000);
+
+            // Typing effect
+            const typingElement = document.querySelector('.typing-effect');
+            const textToType = typingElement.getAttribute('data-text');
+            let index = 0;
+
+            function typeChar() {
+                if (index < textToType.length) {
+                    typingElement.textContent += textToType.charAt(index);
+                    index++;
+                    setTimeout(typeChar, 50);
+                }
+            }
+            typeChar();
+        });
+    </script>
+</body>
+
+</html>

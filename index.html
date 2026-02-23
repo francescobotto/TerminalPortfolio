@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user@fbotto:~$</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="scanline"></div>
+    <div class="status-bar">
+        <span>UPTIME: <span id="uptime">00:00:00</span></span>
+        <span>MEM: <span id="memory">64KB</span></span>
+        <span>CPU: <span id="cpu">12%</span></span>
+    </div>
+
+    <div class="terminal">
+        <header>
+            <div class="prompt">user@fbotto:~$ <span class="typing-effect" data-text="./welcome.sh"></span></div>
+        </header>
+
+        <div class="intro">
+            <h1>FRANCESCO BOTTO</h1>
+            <h2>Software Engineer</h2>
+            <div class="contact-info">
+                <p>> Location: Chicago, IL / Turin, Italy</p>
+                <p>> Situation: Looking for a full-time job</p>
+                <p>> Resume: <a href="#" id="download-cv" class="cv-link">[Download CV]</a></p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/francesco-botto-135aa018a/" class="social-icon" target="_blank"
+                        rel="noopener noreferrer" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zM7.119 20.452H3.554V9h3.565v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>
+                </div>
+                <div id="command-list-static"></div>
+            </div>
+        </div>
+
+        <main id="output">
+            <!-- Content will be appended here -->
+        </main>
+
+        <div class="input-line">
+            <span class="prompt">user@fbotto:~$</span>
+            <input type="text" id="cli-input" autocomplete="off" autofocus>
+        </div>
+
+        <!-- Hidden Templates -->
+        <div id="templates" style="display: none;">
+
+            <section id="tpl-education" class="section-content">
+                <h3>[ EDUCATION ]</h3>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="title">Master of Science in Computer Science</span>
+                        <span class="date">Jan 2024 - Dec 2025</span>
+                    </div>
+                    <div class="subtitle">University of Illinois Chicago <span class="gpa">| GPA: 3.72/4.00</span></div>
+                    <ul>
+                        <li>TOP-UIC double degree program, awarded with scholarship and RA sponsorship.</li>
+                        <li>Focus: Neural Networks, Computer Vision, Cybersecurity, AI, Data Visualization.</li>
+                    </ul>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="title">Master of Science in Computer Engineering</span>
+                        <span class="date">Oct 2023 - Dec 2025</span>
+                    </div>
+                    <div class="subtitle">Politecnico di Torino <span class="gpa">| GPA: 3.93/4.00</span></div>
+                    <ul>
+                        <li>Focus: Software Engineering, Web Apps, Data Science, System Programming, Graphics.</li>
+                    </ul>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="title">Bachelor of Science in Computer Engineering</span>
+                        <span class="date">Oct 2020 - Oct 2023</span>
+                    </div>
+                    <div class="subtitle">Politecnico di Torino <span class="gpa">| GPA: 3.7/4.00</span></div>
+                    <ul>
+                        <li>Exchange program at Mississippi State University (Fall 2022).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="tpl-experience" class="section-content">
+                <h3>[ WORK EXPERIENCE ]</h3>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="title">Data Management and Workflow Automation</span>
+                        <span class="date">Jan 2023 - May 2023</span>
+                    </div>
+                    <div class="subtitle">DENSO Thermal Systems (Turin, Italy)</div>
+                    <ul>
+                        <li>Mastered management software and automated workflows.</li>
+                        <li>Enhanced user interfaces and utilized SQL for data reporting in a unit of 200+ employees.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="tpl-research" class="section-content">
+                <h3>[ RESEARCH EXPERIENCE ]</h3>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="title">Research Assistant</span>
+                        <span class="date">Jan 2025 - Dec 2025</span>
+                    </div>
+                    <div class="subtitle">University of Illinois (Chicago, US)</div>
+                    <ul>
+                        <li>Designed end-to-end system for large-scale sensory data collection and analysis.</li>
+                        <li>Developed mobile app and interactive visual analytics tool (50+ users validation).</li>
+                        <li>Collaborated with MD Anderson Cancer Center researchers.</li>
+                    </ul>
+                    <a href="research.html" class="more-info-link">-> more_info</a>
+                </div>
+            </section>
+
+            <section id="tpl-publications" class="section-content">
+                <h3>[ PUBLICATIONS ]</h3>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="title">Flavor Charter: Development of a Smartphone App
+                            for Quantifying Food Flavor</span>
+                        <span class="date">2025</span>
+                    </div>
+                    <div class="subtitle">IEEE International Conference on Data Mining (ICDM)</div>
+                    <ul>
+                        <li>We present the design and development of a crowdsourced, data-driven approach to
+                            quantifying the flavor of specific
+                            foods. Our approach leverages an interactive smartphone app
+                            with a client-server architecture, and supports future stratified
+                            analysis based on dietary and demographic factors. This approach has the potential to
+                            document taste loss and to empower
+                            patients to describe taste loss symptoms in a more precise,
+                            standardized language.</li>
+                    </ul>
+                    <a href="#" class="more-info-link" target="_blank" rel="noopener noreferrer">-> more_info</a>
+                </div>
+            </section>
+
+            <section id="tpl-projects" class="section-content">
+                <h3>[ PROJECTS ]</h3>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="title">3D Scene Version Control System for Blender</span>
+                        <span class="date">2025</span>
+                    </div>
+                    <div class="subtitle">Computer Graphics Course</div>
+                    <ul>
+                        <li>Blender add-on implementing Git-like version control for 3D scenes.</li>
+                    </ul>
+                    <a href="blender_versioning.html" class="more-info-link">-> more_info</a>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="title">AI-Powered Chatbot</span>
+                        <span class="date">2024</span>
+                    </div>
+                    <div class="subtitle">AROL S.p.A</div>
+                    <ul>
+                        <li>RAG and NLP chatbot for AROL Company to enhance customer support.</li>
+                    </ul>
+                    <a href="AI_chatbot.html" class="more-info-link">-> more_info</a>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="title">Multiplayer Game</span>
+                        <span class="date">2024</span>
+                    </div>
+                    <div class="subtitle">Secure Web App Development Class</div>
+                    <ul>
+                        <li>Real-time multiplayer game (70k+ LOC) using JS, React, and WebSockets.</li>
+                    </ul>
+                    <a href="multiplayer_game.html" class="more-info-link">-> more_info</a>
+                </div>
+            </section>
+
+            <section id="tpl-skills" class="section-content">
+                <h3>[ SKILLS ]</h3>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="title">Programming Languages</span>
+                    </div>
+                    <div class="subtitle">
+                        <ul>
+                            <li>JavaScript, Java, C, C++, Python, SQL, HTML, CSS, ARM, 8086</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="title">Frameworks</span>
+                    </div>
+                    <div class="subtitle">
+                        <ul>
+                            <li>React Native, Expo, React.js, Vue.js, Node.js, Express.js, PyTorch, Firebase, D3.js</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="title">Spoken Languages</span>
+                    </div>
+                    <div class="subtitle">
+                        <ul>
+                            <li>Italian (Native), English (Professional), Spanish (Basic)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

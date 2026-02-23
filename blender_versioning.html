@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user@fbotto:~/projects/view</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--link-color);
+            text-decoration: none;
+            border: 1px solid var(--dim-text);
+            padding: 5px 10px;
+        }
+
+        .back-link:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .project-header {
+            border-bottom: 1px dashed var(--dim-text);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-meta {
+            color: var(--dim-text);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .project-content {
+            line-height: 1.8;
+        }
+
+        .project-image-placeholder {
+            width: 100%;
+            height: 300px;
+            border: 1px solid var(--dim-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 255, 65, 0.05);
+            margin: 2rem 0;
+            color: var(--dim-text);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scanline"></div>
+    <div class="status-bar">
+        <span>UPTIME: <span id="uptime">00:00:00</span></span>
+        <span>MEM: <span id="memory">64KB</span></span>
+        <span>CPU: <span id="cpu">12%</span></span>
+    </div>
+
+    <div class="terminal">
+        <header>
+            <div class="prompt" style="margin-bottom: 2rem;">user@fbotto:~/projects$ <span class="typing-effect"
+                    data-text="./cat blender_versioning.txt"></span></div>
+        </header>
+
+        <main id="output" class="visible">
+            <a href="index.html" class="back-link">&lt; cd ..</a>
+
+            <article>
+                <div class="project-header">
+                    <h1>Blender Versioning Control</h1>
+                    <div class="project-meta">
+                        <span>> Year: 2025</span> |
+                        <span>> Stack: Python, Blender API, Supabase</span>
+                    </div>
+                </div>
+
+                <div class="project-content">
+                    <p>> I developed a GitHub-like versioning system for Blender scenes, designed to track and manage
+                        3D scene evolution through commits, covering changes such as object transforms, materials, and
+                        modifiers, without relying on heavy .blend file duplication. The goal was to make version
+                        control
+                        in a creative 3D workflow feel closer to software engineering: you can save incremental
+                        versions,
+                        browse a structured history, and restore the entire scene or a single object with precision.</p>
+
+                    <div class="project-image-placeholder">
+                        [ IMAGE / DEMO PLACEHOLDER ]
+                    </div>
+
+                    <h3>[ KEY FEATURES ]</h3>
+                    <ul>
+                        <li><b>Atomic commits</b>: each commit captures a coherent snapshot of the scene state, ensuring
+                            changes are recorded as a reliable, self-contained unit rather than partial diffs.</li>
+                        <li><b>Merge with comparison & conflict resolution</b>: provides tools to compare versions and
+                            resolve
+                            conflicts when changes overlap, enabling controlled integration of edits across branches or
+                            collaborators.</li>
+                        <li><b>Selective restore</b>: restores individual modified elements (e.g., specific
+                            objects/materials/modifiers) without rolling back the entire scene, supporting fast
+                            iteration and targeted recovery.</li>
+                        <li><b>Cloud collaboration</b>: version history is stored on a remote backend
+                            (Supabase/Postgres) so
+                            commits are consistent across machines and accessible to a group working on the same project
+                            workspace.</li>
+                        <li><b>Blender add-on integration</b>: the workflow runs directly inside Blender: the add-on
+                            handles
+                            serialization, commit creation, history browsing, and restore operations through the Blender
+                            API.</li>
+                    </ul>
+
+                    <h3>[ TECH STACK ]</h3>
+                    <ul>
+                        <li><b>Language:</b> Python</li>
+                        <li><b>Database:</b> Supabase, Postgres</li>
+                    </ul>
+
+                    <h3>[ LINKS ]</h3>
+                    <ul>
+                        <li><a href="#">[ GitHub Repository ]</a></li>
+                        <li><a href="#">[ Live Demo ]</a></li>
+                    </ul>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <script>
+        // Minimal script for sticky header/typing effect if needed
+        document.addEventListener('DOMContentLoaded', () => {
+            // System Stats (Reused logic)
+            let seconds = 0;
+            setInterval(() => {
+                seconds++;
+                const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+                const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+                const s = (seconds % 60).toString().padStart(2, '0');
+                document.getElementById('uptime').textContent = `${h}:${m}:${s}`;
+
+                if (Math.random() > 0.5) {
+                    document.getElementById('cpu').textContent = Math.floor(Math.random() * 20) + '%';
+                    document.getElementById('memory').textContent = (64 + Math.floor(Math.random() * 10)) + 'KB';
+                }
+            }, 1000);
+
+            // Typing effect
+            const typingElement = document.querySelector('.typing-effect');
+            const textToType = typingElement.getAttribute('data-text');
+            let index = 0;
+
+            function typeChar() {
+                if (index < textToType.length) {
+                    typingElement.textContent += textToType.charAt(index);
+                    index++;
+                    setTimeout(typeChar, 50);
+                }
+            }
+            typeChar();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,458 @@
+:root {
+    --bg-color: #0d1117;
+    --text-color: #00ff41;
+    /* Classic terminal green */
+    --dim-text: #008f11;
+    --highlight: #003b00;
+    --link-color: #33ff33;
+    --font-stack: 'Fira Code', 'Courier New', monospace;
+    --scanline-color: rgba(0, 0, 0, 0.5);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-stack);
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+a:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    text-decoration: none;
+}
+
+.cv-link {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.cv-link:hover {
+    color: var(--bg-color);
+    background-color: var(--link-color);
+}
+
+.social-links {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--dim-text);
+    color: var(--dim-text);
+    text-decoration: none;
+    transition: all 0.2s;
+    background: transparent;
+}
+
+.social-icon svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+.social-icon:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border-color: var(--text-color);
+}
+
+/* Terminal Container */
+.terminal {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+/* Typography */
+h1,
+h2,
+h3 {
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 5px var(--text-color);
+}
+
+h2 {
+    font-size: 1.2rem;
+    color: var(--dim-text);
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed var(--dim-text);
+    display: inline-block;
+    padding-bottom: 2px;
+}
+
+p,
+li {
+    margin-bottom: 0.5rem;
+}
+
+ul {
+    list-style: none;
+    /* Custom bullet points */
+    padding-left: 1rem;
+}
+
+li::before {
+    content: "> ";
+    color: var(--dim-text);
+}
+
+/* CRT Scanline Effect */
+.scanline {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2));
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* Intro Section */
+.intro {
+    position: relative;
+    margin-bottom: 2rem;
+    border: 1px solid var(--dim-text);
+    padding: 1rem;
+}
+
+/* Entries (Education, Experience) */
+.entry {
+    margin-bottom: 1.5rem;
+}
+
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.entry-header .title {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.entry-header .date {
+    color: var(--dim-text);
+    font-size: 0.9rem;
+}
+
+.subtitle {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+    color: #a8f0a8;
+}
+
+/* Skills */
+.skill-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.skill-category {
+    border-left: 2px solid var(--dim-text);
+    padding-left: 1rem;
+}
+
+.category-title {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+/* Flashing/Typing Effects */
+.prompt {
+    color: var(--text-color);
+}
+
+.hidden {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.visible {
+    opacity: 1;
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    background-color: var(--text-color);
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.command-flashing {
+    margin: 1.5rem 0;
+    color: var(--dim-text);
+    font-family: var(--font-stack);
+}
+
+/* Responsive */
+@media (min-width: 600px) {
+    .entry-header {
+        flex-direction: row;
+    }
+
+    .skill-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns for skills on larger screens */
+    }
+}
+
+/* Interactivity */
+.entry.clickable {
+    cursor: pointer;
+    transition: background-color 0.2s;
+    padding: 5px;
+    border: 1px solid transparent;
+}
+
+.entry.clickable:hover {
+    background-color: rgba(0, 255, 65, 0.1);
+    border: 1px dashed var(--dim-text);
+}
+
+.entry.clickable .title {
+    color: var(--link-color);
+}
+
+.details {
+    display: none;
+    margin-top: 10px;
+    padding-left: 20px;
+    border-left: 1px solid var(--dim-text);
+}
+
+.details.open {
+    display: block;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Status Bar */
+.status-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 5px 10px;
+    background: rgba(13, 17, 23, 0.9);
+    border-bottom-left-radius: 5px;
+    font-size: 0.8rem;
+    color: var(--dim-text);
+    z-index: 1000;
+    display: flex;
+    gap: 15px;
+}
+
+.status-bar span {
+    font-family: var(--font-stack);
+}
+
+/* CLI Input */
+.footer {
+    display: none;
+    /* Removed old footer class if managed by input-line directly */
+}
+
+/* New Input Line Container */
+.input-line {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-color);
+    padding: 10px 0;
+    /* Sticky input line ? Optional, but let's keep it at bottom of flow */
+}
+
+#cli-input {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-family: var(--font-stack);
+    font-size: 1rem;
+    flex-grow: 1;
+    margin-left: 10px;
+    outline: none;
+    caret-color: var(--text-color);
+}
+
+.command-echo {
+    margin-bottom: 0.5rem;
+    color: var(--dim-text);
+}
+
+/* Template Sections */
+.section-content {
+    margin-bottom: 2rem;
+    /* Animation for new content */
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Glitch Effect on Reveal (Optional flair) */
+.hidden-section.reveal h3 {
+    animation: glitch 0.5s cubic-bezier(.25, .46, .45, .94) both;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0)
+    }
+
+    20% {
+        transform: translate(-2px, 2px)
+    }
+
+    40% {
+        transform: translate(-2px, -2px)
+    }
+
+    60% {
+        transform: translate(2px, 2px)
+    }
+
+    80% {
+        transform: translate(2px, -2px)
+    }
+
+    100% {
+        transform: translate(0)
+    }
+}
+
+/* Command Arrow Link (-> more_info) */
+/* Command Arrow Link (-> more_info) */
+.more-info-link {
+    display: block;
+    /* Was inline-block, but float makes it block anyway. Using explicit block for clarity */
+    float: left;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    text-decoration: none;
+    margin-top: 2px;
+    font-family: var(--font-stack);
+    border: none;
+    padding: 2px 0;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.more-info-link:hover {
+    color: var(--bg-color);
+    background-color: var(--text-color);
+    text-shadow: none;
+    cursor: pointer;
+}
+
+/* Clear float */
+.entry::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Project/Research Images */
+.project-image-container {
+    margin: 2rem 0;
+    text-align: center;
+    border: 1px solid var(--dim-text);
+    padding: 10px;
+    background: rgba(0, 255, 65, 0.02);
+}
+
+.project-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border: 1px solid var(--dim-text);
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1000;
+}
+
+.image-caption {
+    margin-top: 10px;
+    color: var(--dim-text);
+    font-size: 0.9rem;
+    font-style: italic;
+}
