@@ -44,14 +44,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Command Dictionary
     const commands = [
         'education', 'experience', 'research', 'projects',
-        'publications', 'skills', 'all', 'clear'
+        'skills', 'publications', 'all', 'clear'
     ];
 
     // Populate static command list in intro
     const staticCommandList = document.getElementById('command-list-static');
     if (staticCommandList) {
         const p = document.createElement('p');
-        p.textContent = '> Available commands:';
+        p.textContent = 'Available commands:';
         p.style.marginBottom = '0.5rem';
         staticCommandList.appendChild(p);
 
@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         list.style.columnGap = '30px';
         list.style.rowGap = '5px';
         list.style.marginTop = '10px';
+        list.style.paddingLeft = '0'; // Allinea a riga col testo sopra
 
         commands.forEach(cmd => {
             const li = createClickableCommand(cmd);

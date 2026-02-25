@@ -249,10 +249,54 @@ li::before {
     .entry-header {
         flex-direction: row;
     }
+}
 
-    .skill-grid {
-        grid-template-columns: repeat(2, 1fr);
-        /* 2 columns for skills on larger screens */
+@media (max-width: 600px) {
+    body {
+        padding: 15px;
+        font-size: 15px;
+    }
+
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    .status-bar {
+        display: none !important;
+    }
+
+    .entry-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .entry-header .date {
+        margin-top: 2px;
+        margin-bottom: 5px;
+    }
+
+    /* Adjust the absolute position slightly for mobile margins */
+    .social-links {
+        bottom: 0.5rem;
+        right: 0.5rem;
+    }
+
+    /* Keep the command list grid on 2 columns but reduce the gap drastically */
+    #command-list-static ul {
+        column-gap: 30px !important;
+        row-gap: 8px !important;
+    }
+
+    .prompt {
+        font-size: 0.9rem;
+    }
+
+    .command-flashing {
+        font-size: 0.9rem;
     }
 }
 
