@@ -313,6 +313,16 @@ li::before {
     border: 1px dashed var(--dim-text);
 }
 
+.command-item {
+    transition: text-shadow 0.2s, color 0.2s;
+}
+
+.command-item:hover {
+    color: var(--text-color);
+
+    text-shadow: 0 0 8px var(--text-color);
+}
+
 .entry.clickable .title {
     color: var(--link-color);
 }

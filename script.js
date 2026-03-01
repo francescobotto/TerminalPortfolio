@@ -107,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const emptyStr = '-'.repeat(emptyLength);
 
             loadingContainer.textContent = `[${filledStr}${emptyStr}] ${progress}%`;
-            window.scrollTo(0, document.body.scrollHeight);
 
             if (progress < 100) {
                 progress += Math.floor(Math.random() * 15) + 5;
@@ -129,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 10);
         setTimeout(updateLoader, 300);
     }
 
@@ -161,8 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     processCommand(commandLine);
                 }
                 cliInput.value = '';
-                // Auto scroll to bottom
-                window.scrollTo(0, document.body.scrollHeight);
             } else if (e.key === 'Tab') {
                 e.preventDefault();
                 handleTabCompletion(cliInput.value);
@@ -248,10 +244,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 printOutput(`Command not found: ${cmd}. Type 'help' for a list of commands.`);
         }
 
-        // Ensure scrolling to bottom after command execution
-        setTimeout(() => {
-            window.scrollTo(0, document.body.scrollHeight);
-        }, 10);
+        if (cmd !== 'clear') {
+            setTimeout(() => {
+                echo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+        }
     }
 
     function renderSection(templateId) {
@@ -301,8 +298,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             outputContainer.appendChild(list);
 
-            // Restore input line visuals (handled by browser keeping focus)
-            window.scrollTo(0, document.body.scrollHeight);
+            setTimeout(() => {
+                echo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
         }
     }
 
